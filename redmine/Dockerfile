@@ -1,4 +1,4 @@
-FROM redmine:4.2.3
+FROM "redmine:${REDMINE_VERSION}"
 RUN apt-get update -y \
     && apt-get upgrade \
     && apt-get install -y \
@@ -22,6 +22,6 @@ RUN jinja -D DB_HOST "${DB_HOST}" \
     -D REDMINE_DB_DATABASE "${REDMINE_DB_DATABASE}" \
     -D REDMINE_DB_USERNAME "${REDMINE_DB_USERNAME}" \
     -D REDMINE_DB_PASSWORD "${REDMINE_DB_PASSWORD}" \
-    -o /usr/src/redmine/config/database.yml /tmp/database.yml.j2;
-COPY puma.rb /usr/src/redmine/config/puma.rb
+    -o "${REDMINE_PATH}"/config/database.yml /tmp/database.yml.j2;
+COPY puma.rb "${REDMINE_PATH}"/config/puma.rb
 COPY puma.service /etc/systemd/system/puma.service
