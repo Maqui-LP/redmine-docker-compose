@@ -1,6 +1,1 @@
-*.pem
-.terraform/
-*.tfstate
-*.tfstate.*
-uptimerobotApiKey.txt
-tf_ansible_vars.yml
+.env.*
