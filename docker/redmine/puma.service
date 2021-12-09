@@ -1,0 +1,13 @@
+[Unit]
+Description=Puma application server for Redmine
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/src/redmine
+ExecStartPre=/bin/mkdir -p /usr/src/redmine/tmp/pids /usr/src/redmine/tmp/sockets
+ExecStart=puma -C /usr/src/redmine/config/puma.rb
+Restart=always
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target

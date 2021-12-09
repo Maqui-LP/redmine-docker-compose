@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+  # la otra que se me ocurre: como solo copio una configuracion, podria hacer un volumen
+  # ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+  nginx:
+    image: nginx:1.21
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8081:80
+    depends_on:
+      - redmine
+    volumes:
+      - statics:/usr/src/redmine/public
+      - puma:/usr/src/redmine/tmp
+  redmine:
+    build:
+      context: ./redmine
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./redmine/redmine_uploads:/usr/src/redmine/files
+      - statics:/usr/src/redmine/public
+      - puma:/usr/src/redmine/tmp
+    environment:
+      REDMINE_DB_USERNAME: "${REDMINE_DB_USERNAME}"
+      REDMINE_DB_PASSWORD: "${REDMINE_DB_PASS}"
+      REDMINE_DB_DATABASE: "${REDMINE_DB_DATABASE}"
+      DB_HOST: "${DB_HOST}"
+  #backup?
+volumes:
+  statics:
+  puma:
