@@ -1,4 +1,4 @@
-FROM "redmine:${REDMINE_VERSION}"
+FROM redmine:${REDMINE_VERSION}
 RUN apt-get update -y \
     && apt-get upgrade \
     && apt-get install -y \
