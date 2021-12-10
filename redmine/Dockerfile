@@ -7,7 +7,7 @@ ARG REDMINE_PATH=/usr/src/redmine
 
 ENV DB_HOST=${DB_HOST}
 ENV REDMINE_DB_DATABASE=${REDMINE_DB_DATABASE}
-ENV REDMINE_DB_PASSWORD=${REDMINE_DB_PASS}
+ENV REDMINE_DB_PASSWORD=${REDMINE_DB_PASSWORD}
 ENV REDMINE_DB_USERNAME=${REDMINE_DB_USERNAME}
 ENV REDMINE_PATH=${REDMINE_PATH}
 
@@ -25,13 +25,13 @@ RUN apt-get update -y \
     && gem install bundler mysql2\
     && bundle install;
 
-COPY database.yml "${REDMINE_PATH}"/config/database.yml
+COPY database.yml.j2 /tmp/database.yml.j2
 RUN pip3 install --no-cache-dir --upgrade setuptools\
     && pip3 install --no-cache-dir jinja-cli PyMySQL
-RUN jinja -E "${DB_HOST}" \
-    -E "${REDMINE_DB_DATABASE}" \
-    -E "${REDMINE_DB_USERNAME}" \
-    -E "${REDMINE_DB_PASSWORD}" \
+RUN jinja -D DB_HOST "${DB_HOST}" \
+    -D REDMINE_DB_DATABASE "${REDMINE_DB_DATABASE}" \
+    -D REDMINE_DB_USERNAME "${REDMINE_DB_USERNAME}" \
+    -D REDMINE_DB_PASSWORD "${REDMINE_DB_PASSWORD}" \
     -o "${REDMINE_PATH}"/config/database.yml /tmp/database.yml.j2;
 
 WORKDIR "${REDMINE_PATH}"

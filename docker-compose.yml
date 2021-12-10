@@ -27,7 +27,7 @@ services:
         - REDMINE_DB_USERNAME=${REDMINE_DB_USERNAME}
         - REDMINE_PATH=${REDMINE_PATH}
         - REDMINE_VERSION=${REDMINE_VERSION}
-      restart: always
+    restart: always
     expose:
       - 3000
     volumes:
@@ -35,7 +35,7 @@ services:
       - statics:/usr/src/redmine/public
       - puma:/usr/src/redmine/tmp
     environment:
-     # REDMINE_DB_NO_MIGRATE: true
+      REDMINE_DB_NO_MIGRATE: true
   #backup?
 volumes:
   statics:
