@@ -34,8 +34,8 @@ services:
       - ./redmine/redmine_uploads:/usr/src/redmine/files
       - statics:/usr/src/redmine/public
       - puma:/usr/src/redmine/tmp
-    environment:
-      REDMINE_DB_NO_MIGRATE: true
+    #environment:
+    #  REDMINE_DB_NO_MIGRATE: true
   #backup?
 volumes:
   statics:
