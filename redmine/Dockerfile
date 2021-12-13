@@ -25,11 +25,13 @@ RUN apt-get update && apt-get install -y \
     libssl-dev;
 
 RUN wget -O /tmp/redmine.zip https://www.redmine.org/releases/redmine-4.2.3.zip \
-    && unzip /tmp/redmine.zip -d "${REDMINE_PATH}"
+    && unzip /tmp/redmine.zip -d "${REDMINE_PATH}" \
+    && cp -r /usr/src/redmine-4.2.3/* "${REDMINE_PATH}" \
+    && rm -r /usr/src/redmine-4.2.3;
 
-RUN mkdir mkdir -p "${REDMINE_PATH}"/pids "${REDMINE_PATH}"/sockets
+RUN mkdir mkdir -p "${REDMINE_PATH}"/pids
 
-RUN gem install mysql2
+RUN gem install mysql2 bundler && bundle install
 
 COPY database.yml.j2 /tmp/database.yml.j2
 COPY puma.rb "${REDMINE_PATH}"/config/puma.rb
