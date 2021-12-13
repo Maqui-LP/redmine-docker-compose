@@ -28,9 +28,19 @@ services:
     expose:
       - 3000
     volumes:
-      - ./redmine/redmine_uploads:/usr/src/redmine/files
+      - redmine_uploads:/usr/src/redmine/files
       - statics:/usr/src/redmine/public
+  backup:
+    build:
+      context: ./backup
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./backups:/backups
+      - redmine_uploads:/files
 
-  #backup?
 volumes:
+  redmine_uploads:
+    driver: local
   statics:
+

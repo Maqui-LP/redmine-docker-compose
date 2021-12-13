@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 bundle exec rake generate_secret_token
 bundle exec rake db:migrate RAILS_ENV="${RAILS_ENV}"
