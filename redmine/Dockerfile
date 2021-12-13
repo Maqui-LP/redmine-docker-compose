@@ -11,9 +11,9 @@ ENV REDMINE_DB_PASSWORD=${REDMINE_DB_PASSWORD}
 ENV REDMINE_DB_USERNAME=${REDMINE_DB_USERNAME}
 ENV REDMINE_PATH=${REDMINE_PATH}
 
-RUN apt-get update -y \
-    && apt-get upgrade \
-    && apt-get install -y \
+WORKDIR "${REDMINE_PATH}"
+
+RUN apt-get update -y && apt-get upgrade && apt-get install -y \
     build-essential \
     ca-certificates \
     python3-pip \
@@ -25,20 +25,21 @@ RUN apt-get update -y \
     && gem install bundler mysql2\
     && bundle install;
 
-COPY database.yml.j2 /tmp/database.yml.j2
+#COPY database.yml.j2 /tmp/database.yml.j2
 RUN pip3 install --no-cache-dir --upgrade setuptools\
     && pip3 install --no-cache-dir jinja-cli PyMySQL
 RUN jinja -D DB_HOST "${DB_HOST}" \
     -D REDMINE_DB_DATABASE "${REDMINE_DB_DATABASE}" \
     -D REDMINE_DB_USERNAME "${REDMINE_DB_USERNAME}" \
     -D REDMINE_DB_PASSWORD "${REDMINE_DB_PASSWORD}" \
-    -o "${REDMINE_PATH}"/config/database.yml /tmp/database.yml.j2;
+    -o "${REDMINE_PATH}"/config/database.yml ./database.yml.j2;
 
-WORKDIR "${REDMINE_PATH}"
 
 # RUN bundle exec rake generate_secret_token
 # && bundle exec rake db:migrate RAILS_ENV=production
 
 RUN gem install puma && mkdir -p "${REDMINE_PATH}"/pids "${REDMINE_PATH}"/sockets
 COPY puma.rb "${REDMINE_PATH}"/config/puma.rb
+
+ENTRYPOINT [ "./entrypoint.sh" ]
 # CMD ["puma", "-C", "/usr/src/redmine/config/puma.rb"]
