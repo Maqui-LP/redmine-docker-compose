@@ -26,8 +26,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN wget -O /tmp/redmine.zip https://www.redmine.org/releases/redmine-4.2.3.zip \
     && unzip /tmp/redmine.zip -d "${REDMINE_PATH}" \
-    && cp -r /usr/src/redmine-4.2.3/* "${REDMINE_PATH}" \
-    && rm -r /usr/src/redmine-4.2.3;
+    && cp -r "${REDMINE_PATH}"/redmine-4.2.3/* "${REDMINE_PATH}" \
+    && rm -r "${REDMINE_PATH}"redmine-4.2.3;
 
 RUN mkdir mkdir -p "${REDMINE_PATH}"/pids
 
