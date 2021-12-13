@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 printf "%s /usr/bin/rsnapshot hourly\n%s /usr/bin/rsnapshot daily\n%s /usr/bin/rsnapshot weekly" "${HOURLY_SCHEDULE}" "${DAILY_SCHEDULE}" "${WEEKLY_SCHEDULE}" | crontab -
 
