@@ -13,5 +13,5 @@ if ! type -p docker-compose >/dev/null; then
     echo "docker-compose is not installed on this system."
     exit 1
 fi
-export ENV
+
 docker-compose --env-file ".env.${ENV}" up

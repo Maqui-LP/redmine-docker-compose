@@ -33,8 +33,6 @@ services:
       - ./redmine/redmine_uploads:/usr/src/redmine/files
       - statics:/usr/src/redmine/public
       - puma:/usr/src/redmine/tmp
-    environment:
-      REDMINE_NO_DB_MIGRATE: true
   #backup?
 volumes:
   statics:
