@@ -4,7 +4,7 @@ development:
   host: {{ DB_HOST }}
   username: {{ REDMINE_DB_USERNAME }}
   password: {{ REDMINE_DB_PASSWORD }}
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /run/mysqld/mysqld.sock
 
 production:
   adapter: mysql2
@@ -12,4 +12,4 @@ production:
   host: {{ DB_HOST }}
   username: {{ REDMINE_DB_USERNAME }}
   password: {{ REDMINE_DB_PASSWORD }}
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /run/mysqld/mysqld.sock
