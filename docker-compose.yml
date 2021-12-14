@@ -17,13 +17,7 @@ services:
       context: ./redmine
       dockerfile: Dockerfile
       args:
-        - DB_HOST=${DB_HOST}
-        - REDMINE_DB_DATABASE=${REDMINE_DB_DATABASE}
-        - REDMINE_DB_PASSWORD=${REDMINE_DB_PASSWORD}
-        - REDMINE_DB_USERNAME=${REDMINE_DB_USERNAME}
         - REDMINE_PATH=${REDMINE_PATH}
-        - REDMINE_VERSION=${REDMINE_VERSION}
-        - RAILS_ENV=${RAILS_ENV}
     restart: always
     expose:
       - 3000
