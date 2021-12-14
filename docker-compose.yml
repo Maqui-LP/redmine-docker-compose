@@ -24,6 +24,8 @@ services:
     volumes:
       - redmine_uploads:/usr/src/redmine/files
       - statics:/usr/src/redmine/public
+    env_file:
+      - .env.production
   backup:
     build:
       context: ./backup
