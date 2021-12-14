@@ -4,8 +4,8 @@ cd "$(dirname "$0")/.." || exit
 
 ENV="$1"
 
-if [[ ! -f ".env.${ENV}" ]]; then
-    echo "No .env.${ENV} file"
+if [[ ! -f ".env" ]]; then
+    echo "No .env file"
     exit 1
 fi
 
@@ -14,4 +14,4 @@ if ! type -p docker-compose >/dev/null; then
     exit 1
 fi
 
-docker-compose --env-file ".env.${ENV}" up
+docker-compose up

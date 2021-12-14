@@ -1,36 +1,37 @@
 version: '3.1'
 services:
   nginx:
-    image: nginx:1.21
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    restart: always
+    restart: on-failure
     ports:
       - 80:80
     depends_on:
       - redmine
     volumes:
       - statics:/usr/src/redmine/public
-  redmine:
+  redmine: &redmine-template
     build:
       context: ./redmine
       dockerfile: Dockerfile
-      args:
-        - REDMINE_PATH=${REDMINE_PATH}
-    restart: always
+    restart: on-failure
     expose:
       - 3000
     volumes:
       - redmine_uploads:/usr/src/redmine/files
       - statics:/usr/src/redmine/public
+    network_mode: service:nginx
     env_file:
-      - .env.production
+      - .env
+  migrations: 
+    <<: *redmine-template
+    command: ["bundle", "exec", "rake", "db:migrate"]
   backup:
     build:
       context: ./backup
       dockerfile: Dockerfile
-    restart: always
+    restart: on-failure
     volumes:
       - ./backups:/backups
       - redmine_uploads:/files
