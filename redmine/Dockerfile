@@ -20,7 +20,6 @@ RUN gem install bundler && bundle install
 
 COPY database.yml "${REDMINE_PATH}"/config/database.yml
 COPY puma.rb "${REDMINE_PATH}"/config/puma.rb
-COPY secrets.yml "${REDMINE_PATH}"/config/secrets.yml
 COPY entrypoint.sh entrypoint.sh
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

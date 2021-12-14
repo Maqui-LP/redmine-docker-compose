@@ -7,8 +7,8 @@ services:
     restart: on-failure
     ports:
       - 80:80
-    depends_on:
-      - redmine
+    # depends_on:
+    #   - redmine
     volumes:
       - statics:/usr/src/redmine/public
   redmine: &redmine-template
