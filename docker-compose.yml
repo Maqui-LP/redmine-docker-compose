@@ -7,8 +7,6 @@ services:
     restart: on-failure
     ports:
       - 80:80
-    # depends_on:
-    #   - redmine
     volumes:
       - statics:/usr/src/redmine/public
   redmine: &redmine-template
@@ -16,17 +14,15 @@ services:
       context: ./redmine
       dockerfile: Dockerfile
     restart: on-failure
-    expose:
-      - 3000
     volumes:
       - redmine_uploads:/usr/src/redmine/files
       - statics:/usr/src/redmine/public
-    #network_mode: service:nginx
+    network_mode: service:nginx
     env_file:
       - .env
-  # migrations: 
-  #   <<: *redmine-template
-  #   command: ["bundle", "exec", "rake", "db:migrate"]
+  migrations: 
+    <<: *redmine-template
+    command: ["bundle", "exec", "rake", "db:migrate", "RAILS_ENV=production"]
   backup:
     build:
       context: ./backup

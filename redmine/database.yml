@@ -4,4 +4,3 @@ production:
   host: <%= ENV["DB_HOST"] %>
   username: <%= ENV["REDMINE_DB_USERNAME"] %>
   password: <%= ENV["REDMINE_DB_PASSWORD"] %>
-  #socket: /run/mysqld/mysqld.sock
