@@ -7,7 +7,13 @@ WORKDIR "${REDMINE_PATH}"
 RUN apt-get update && apt-get install -y \
     build-essential \
     libmagickwand-dev \
-    default-libmysqlclient-dev;
+    default-libmysqlclient-dev \
+    default-mysql-server \
+    libssl-dev \
+    ca-certificates \
+    python3-pip \
+    python3-mysqldb \
+    libcurl4-openssl-dev;
 
 RUN wget -O /tmp/redmine.zip https://www.redmine.org/releases/redmine-4.2.3.zip \
     && unzip /tmp/redmine.zip -d "${REDMINE_PATH}" \
@@ -16,11 +22,11 @@ RUN wget -O /tmp/redmine.zip https://www.redmine.org/releases/redmine-4.2.3.zip 
 
 RUN mkdir -p "${REDMINE_PATH}"/pids
 
-RUN gem install bundler && bundle install
+RUN gem install mysql2 bundler && bundle install
 
 COPY database.yml "${REDMINE_PATH}"/config/database.yml
 COPY puma.rb "${REDMINE_PATH}"/config/puma.rb
 COPY entrypoint.sh entrypoint.sh
 
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+#CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
 ENTRYPOINT [ "./entrypoint.sh" ]
