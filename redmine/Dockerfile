@@ -26,7 +26,6 @@ RUN gem install mysql2 bundler && bundle install
 
 COPY database.yml "${REDMINE_PATH}"/config/database.yml
 COPY puma.rb "${REDMINE_PATH}"/config/puma.rb
-COPY entrypoint.sh entrypoint.sh
+COPY secrets.yml "${REDMINE_PATH}"/config/secrets.yml
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
-ENTRYPOINT [ "./entrypoint.sh" ]
