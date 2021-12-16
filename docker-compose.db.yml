@@ -1,0 +1,10 @@
+version: '3.1'
+services:
+  db:
+    image: mysql:5.7
+    env_file:
+      - .env
+    volumes:
+      - dbdata:/var/lib/mysql
+volumes:
+  dbdata:

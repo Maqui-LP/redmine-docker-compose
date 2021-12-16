@@ -1,6 +1,7 @@
 FROM ruby:2.6.6
 
 ARG REDMINE_PATH=/usr/src/redmine
+ENV RAILS_ENV=production
 
 WORKDIR "${REDMINE_PATH}"
 
