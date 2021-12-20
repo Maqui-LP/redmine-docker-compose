@@ -8,7 +8,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - statics:/usr/src/redmine/public
+      - statics:/usr/src/app/public
   redmine: &redmine-template
     build:
       context: ./redmine

@@ -1,6 +1,7 @@
 FROM ruby:2.6.6
 
 ARG REDMINE_PATH=/usr/src/redmine
+ARG REDMINE_VERSION=4.2.3
 ENV RAILS_ENV=production
 
 WORKDIR "${REDMINE_PATH}"
@@ -16,10 +17,10 @@ RUN apt-get update && apt-get install -y \
     python3-mysqldb \
     libcurl4-openssl-dev;
 
-RUN wget -O /tmp/redmine.zip https://www.redmine.org/releases/redmine-4.2.3.zip \
+RUN wget -O /tmp/redmine.zip https://www.redmine.org/releases/redmine-"${REDMINE_VERSION}".zip \
     && unzip /tmp/redmine.zip -d "${REDMINE_PATH}" \
-    && cp -r "${REDMINE_PATH}"/redmine-4.2.3/* "${REDMINE_PATH}" \
-    && rm -r "${REDMINE_PATH}"/redmine-4.2.3;
+    && cp -r "${REDMINE_PATH}"/redmine-"${REDMINE_VERSION}"/* "${REDMINE_PATH}" \
+    && rm -r "${REDMINE_PATH}"/redmine-"${REDMINE_VERSION}";
 
 RUN mkdir -p "${REDMINE_PATH}"/pids
 

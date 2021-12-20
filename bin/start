@@ -2,8 +2,6 @@
 
 cd "$(dirname "$0")/.." || exit
 
-ENV="$1"
-
 if [[ ! -f ".env" ]]; then
     echo "No .env file"
     exit 1
