@@ -8,6 +8,7 @@ WORKDIR "${REDMINE_PATH}"
 
 RUN apt-get update && apt-get install -y \
     build-essential \
+    ca-certificates \
     libmagickwand-dev \
     default-libmysqlclient-dev \
     default-mysql-server \
