@@ -1,4 +1,4 @@
-FROM python:3.10.1-alpine
+FROM alpine:3.15
 
 ENV HOURLY_SCHEDULE="0 */4 * * *"
 ENV DAILY_SCHEDULE="30 23 * * *"
